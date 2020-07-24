@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+        location="F:\mysql-connector-java-5.1.38.jar" />
+    <context id="context1">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://127.0.0.1:3306/dw_mt_manager" userId="root"
+            password="root" />
+        <javaModelGenerator targetPackage="top.putop.mi.db.model"
+            targetProject="mi_show" />
+        <sqlMapGenerator targetPackage="top.putop.mi.db.mapper"
+            targetProject="mi_show" />
+        <javaClientGenerator targetPackage="top.putop.mi.db.dao"
+            targetProject="mi_show" type="XMLMAPPER" />
+
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+        <!-- 注释 -->
+        <commentGenerator >
+            <!-- 是否取消注释 -->
+            <property name="suppressAllComments" value="false"/>
+            <!-- 是否生成注释代时间戳-->
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+
+
+
+        <table schema="dw_mt_manager" tableName="col_manager"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>
+
+        <table schema="dw_mt_manager" tableName="db_manager"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="db_id" value="false" />
+            <!-- 数据库表主键 -->
+            <generatedKey column="db_id" sqlStatement="Mysql" identity="true" /></table>
+
+    </context>
+</generatorConfiguration>
