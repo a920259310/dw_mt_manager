@@ -9,44 +9,44 @@ import top.putop.mi.db.model.TaskManager;
 public interface ITaskManagerService extends IBaseService<TaskManager> {
 
     /**
-     * 生成数据处理脚本类容
+     * 生成指定表的数据处理脚本类容
      * @param tbId
      * @return
      */
-    public Boolean genRunCode(int tbId);
+    public Boolean genRunCodeByTbId(int tbId);
 
     /**
-     * 生成建表脚本类容
+     * 生成指定表的建表脚本类容
      * @param tbId
      * @return
      */
-    public Boolean genCreateCode(int tbId);
+    public Boolean genCreateCodeByTbId(int tbId);
 
     /**
-     * 生成Mysql数据同步脚本类容
+     * 生成指定表的Mysql数据同步脚本类容
      * @param tbId
      * @return
      */
-    public Boolean genMysqlImportCode(int tbId);
+    public Boolean genMysqlImportCodeByTbId(int tbId);
 
     /**
-     * 生成Oracle数据同步脚本类容
+     * 生成指定表的Oracle数据同步脚本类容
      * @param tbId
      * @return
      */
-    public Boolean genOracleImportCode(int tbId);
+    public Boolean genOracleImportCodeByTbId(int tbId);
 
     /**
-     * 生成Es数据导出脚本类容
+     * 生成指定表的Es数据导出脚本类容
      * @param tbId
      * @return
      */
-    public Boolean genEsExportCode(int tbId);
+    public Boolean genEsExportCodeByTbId(int tbId);
 
     /**
-     * 生成Mysql数据导出脚本类容
+     * 生成指定表的Mysql数据导出脚本类容
      * @param tbId
      * @return
      */
-    public Boolean genMysqlExportCode(int tbId);
+    public Boolean genMysqlExportCodeByTbId(int tbId);
 }
