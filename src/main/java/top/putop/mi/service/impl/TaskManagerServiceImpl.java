@@ -47,4 +47,40 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
     public int updateByPrimaryKey(TaskManager taskManager) {
         return taskManagerMapper.updateByPrimaryKey(taskManager);
     }
+
+    @Override
+    public Boolean genRunCode(int tbId) {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public Boolean genCreateCode(int tbId) {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public Boolean genMysqlImportCode(int tbId) {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public Boolean genOracleImportCode(int tbId) {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public Boolean genEsExportCode(int tbId) {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public Boolean genMysqlExportCode(int tbId) {
+        //TODO
+        return null;
+    }
 }
