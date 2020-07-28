@@ -12,10 +12,11 @@ public class IAzKabanGenTaskScheduleScriptImpl implements IAzKabanGenTaskSchedul
     }
 
     @Override
-    public Boolean exportScriptAll(int taskId) {
+    public Boolean exportScriptAll() {
         //TODO
         return null;
     }
+
 
     @Override
     public Boolean exportScriptByArr(int[] taskId) {
