@@ -15,10 +15,9 @@ public interface IGenTaskScheduleScript {
 
     /**
      * 导出所有任务脚本
-     * @param taskId
      * @return
      */
-    public Boolean exportScriptAll(int taskId);
+    public Boolean exportScriptAll();
 
     /**
      * 导出部分任务脚本
