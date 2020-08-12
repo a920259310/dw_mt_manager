@@ -19,7 +19,7 @@ public class InitController {
 	 */
 	@RequestMapping("/")
 	public String index() {
-		return "index";
+		return "dw_mt_manager/index";
 	}
 
 }
