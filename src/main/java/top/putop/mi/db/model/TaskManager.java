@@ -322,4 +322,20 @@ public class TaskManager {
     public void setTaskContext(String taskContext) {
         this.taskContext = taskContext;
     }
+
+    @Override
+    public String toString() {
+        return "TaskManager{" +
+                "taskId=" + taskId +
+                ", taskType=" + taskType +
+                ", scriptType=" + scriptType +
+                ", taskName='" + taskName + '\'' +
+                ", taskComment='" + taskComment + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", enableFlag=" + enableFlag +
+                ", tbId=" + tbId +
+                ", taskContext='" + taskContext + '\'' +
+                '}';
+    }
 }

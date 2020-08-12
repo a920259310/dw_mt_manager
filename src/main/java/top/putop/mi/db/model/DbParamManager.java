@@ -258,4 +258,18 @@ public class DbParamManager {
     public void setDbId(Integer dbId) {
         this.dbId = dbId;
     }
+
+    @Override
+    public String toString() {
+        return "DbParamManager{" +
+                "dbParamId=" + dbParamId +
+                ", dbParamName='" + dbParamName + '\'' +
+                ", dbParamValue='" + dbParamValue + '\'' +
+                ", dbParamComment='" + dbParamComment + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", enableFlag=" + enableFlag +
+                ", dbId=" + dbId +
+                '}';
+    }
 }

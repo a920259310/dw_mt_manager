@@ -258,4 +258,18 @@ public class ColManager {
     public void setTbId(Integer tbId) {
         this.tbId = tbId;
     }
+
+    @Override
+    public String toString() {
+        return "ColManager{" +
+                "colId=" + colId +
+                ", colName='" + colName + '\'' +
+                ", colType='" + colType + '\'' +
+                ", colComment='" + colComment + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", enableFlag=" + enableFlag +
+                ", tbId=" + tbId +
+                '}';
+    }
 }

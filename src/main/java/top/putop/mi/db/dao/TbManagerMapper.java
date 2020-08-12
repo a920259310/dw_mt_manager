@@ -1,6 +1,9 @@
 package top.putop.mi.db.dao;
 
+import top.putop.mi.db.model.Table;
 import top.putop.mi.db.model.TbManager;
+
+import java.util.List;
 
 public interface TbManagerMapper {
     /**
@@ -50,4 +53,6 @@ public interface TbManagerMapper {
      * @mbggenerated Mon Jul 27 15:29:58 CST 2020
      */
     int updateByPrimaryKey(TbManager record);
+
+    Table getTableByPrimaryKey(Integer tbId);
 }

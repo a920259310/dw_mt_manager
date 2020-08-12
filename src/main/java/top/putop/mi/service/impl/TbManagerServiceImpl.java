@@ -3,6 +3,7 @@ package top.putop.mi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.putop.mi.db.dao.TbManagerMapper;
+import top.putop.mi.db.model.Table;
 import top.putop.mi.db.model.TbManager;
 import top.putop.mi.service.ITbManagerService;
 
@@ -47,4 +48,8 @@ public class TbManagerServiceImpl implements ITbManagerService {
     public int updateByPrimaryKey(TbManager tbManager) {
         return tbManagerMapper.updateByPrimaryKey(tbManager);
     }
+
+    @Override
+    public Table getTableByPrimaryKey(Integer tbId) { return tbManagerMapper.getTableByPrimaryKey(tbId); }
+
 }
