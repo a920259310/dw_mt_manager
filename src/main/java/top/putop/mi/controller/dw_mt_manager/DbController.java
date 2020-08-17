@@ -5,13 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import top.putop.mi.db.model.MiMessage;
-import top.putop.mi.service.IDbManagerService;
-
-import javax.websocket.server.PathParam;
-import java.util.Iterator;
-import java.util.List;
+import top.putop.mi.service.ISrcManagerService;
 
 /**
  * 数据源控制类
@@ -24,7 +18,7 @@ import java.util.List;
 public class DbController {
 
 	@Autowired
-	IDbManagerService iDbManagerService;
+	ISrcManagerService iDbManagerService;
 
 	/**
 	 * 跳转域名显示页

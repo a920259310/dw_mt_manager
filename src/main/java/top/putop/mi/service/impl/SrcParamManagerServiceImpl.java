@@ -2,9 +2,9 @@ package top.putop.mi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.putop.mi.db.dao.DbParamManagerMapper;
-import top.putop.mi.db.model.DbParamManager;
-import top.putop.mi.service.IDbParamManagerService;
+import top.putop.mi.db.dao.SrcParamManagerMapper;
+import top.putop.mi.db.model.SrcParamManager;
+import top.putop.mi.service.ISrcParamManagerService;
 
 /**
  * 数据源参数管理器实现类
@@ -13,10 +13,10 @@ import top.putop.mi.service.IDbParamManagerService;
  *
  */
 @Service
-public class DbParamManagerServiceImpl implements IDbParamManagerService {
+public class SrcParamManagerServiceImpl implements ISrcParamManagerService {
 
     @Autowired
-    private DbParamManagerMapper paramManagerMapper;
+    private SrcParamManagerMapper paramManagerMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer paramId) {
@@ -24,27 +24,27 @@ public class DbParamManagerServiceImpl implements IDbParamManagerService {
     }
 
     @Override
-    public int insert(DbParamManager paramManager) {
+    public int insert(SrcParamManager paramManager) {
         return paramManagerMapper.insert(paramManager);
     }
 
     @Override
-    public int insertSelective(DbParamManager paramManager) {
+    public int insertSelective(SrcParamManager paramManager) {
         return paramManagerMapper.insertSelective(paramManager);
     }
 
     @Override
-    public DbParamManager selectByPrimaryKey(Integer paramId) {
+    public SrcParamManager selectByPrimaryKey(Integer paramId) {
         return paramManagerMapper.selectByPrimaryKey(paramId);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(DbParamManager paramManager) {
+    public int updateByPrimaryKeySelective(SrcParamManager paramManager) {
         return paramManagerMapper.updateByPrimaryKeySelective(paramManager);
     }
 
     @Override
-    public int updateByPrimaryKey(DbParamManager paramManager) {
+    public int updateByPrimaryKey(SrcParamManager paramManager) {
         return paramManagerMapper.updateByPrimaryKey(paramManager);
     }
 }

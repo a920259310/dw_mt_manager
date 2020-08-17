@@ -2,9 +2,9 @@ package top.putop.mi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.putop.mi.db.dao.DbManagerMapper;
-import top.putop.mi.db.model.DbManager;
-import top.putop.mi.service.IDbManagerService;
+import top.putop.mi.db.dao.SrcManagerMapper;
+import top.putop.mi.db.model.SrcManager;
+import top.putop.mi.service.ISrcManagerService;
 
 /**
  * 数据源管理器实现类
@@ -13,10 +13,10 @@ import top.putop.mi.service.IDbManagerService;
  *
  */
 @Service
-public class DbManagerServiceImpl implements IDbManagerService {
+public class SrcManagerServiceImpl implements ISrcManagerService {
 
     @Autowired
-    private DbManagerMapper dbManagerMapper;
+    private SrcManagerMapper dbManagerMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer dbId) {
@@ -24,27 +24,27 @@ public class DbManagerServiceImpl implements IDbManagerService {
     }
 
     @Override
-    public int insert(DbManager dbManager) {
+    public int insert(SrcManager dbManager) {
         return dbManagerMapper.insert(dbManager);
     }
 
     @Override
-    public int insertSelective(DbManager dbManager) {
+    public int insertSelective(SrcManager dbManager) {
         return dbManagerMapper.insertSelective(dbManager);
     }
 
     @Override
-    public DbManager selectByPrimaryKey(Integer dbId) {
+    public SrcManager selectByPrimaryKey(Integer dbId) {
         return dbManagerMapper.selectByPrimaryKey(dbId);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(DbManager dbManager) {
+    public int updateByPrimaryKeySelective(SrcManager dbManager) {
         return dbManagerMapper.updateByPrimaryKeySelective(dbManager);
     }
 
     @Override
-    public int updateByPrimaryKey(DbManager dbManager) {
+    public int updateByPrimaryKey(SrcManager dbManager) {
         return dbManagerMapper.updateByPrimaryKey(dbManager);
     }
 }

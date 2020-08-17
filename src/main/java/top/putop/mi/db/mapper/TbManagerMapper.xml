@@ -33,7 +33,7 @@
       <result column="enable_flag" jdbcType="INTEGER" property="enableFlag" />
       <result column="tb_id" jdbcType="INTEGER" property="tbId" />
     </collection>
-    <collection property="dbParams" ofType="top.putop.mi.db.model.DbParamManager">
+    <collection property="dbParams" ofType="top.putop.mi.db.model.SrcParamManager">
       <id column="db_param_id" jdbcType="INTEGER" property="dbParamId" />
       <result column="db_param_name" jdbcType="VARCHAR" property="dbParamName" />
       <result column="db_param_value" jdbcType="VARCHAR" property="dbParamValue" />
@@ -50,7 +50,7 @@
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from tb_manager
     where tb_id = #{tbId,jdbcType=INTEGER}
@@ -62,12 +62,12 @@
   </delete>
 
   <insert id="insert" parameterType="top.putop.mi.db.model.TbManager">
-    insert into tb_manager (tb_id, tb_com_format, tb_name, 
-      tb_comment, create_time, update_time, 
-      enable_flag, db_id)
-    values (#{tbId,jdbcType=INTEGER}, #{tbComFormat,jdbcType=VARCHAR}, #{tbName,jdbcType=VARCHAR}, 
-      #{tbComment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{enableFlag,jdbcType=INTEGER}, #{dbId,jdbcType=INTEGER})
+    insert into tb_manager (tb_id, tb_com_format, tb_name,
+    tb_comment, create_time, update_time,
+    enable_flag, db_id)
+    values (#{tbId,jdbcType=INTEGER}, #{tbComFormat,jdbcType=VARCHAR}, #{tbName,jdbcType=VARCHAR},
+    #{tbComment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+    #{enableFlag,jdbcType=INTEGER}, #{dbId,jdbcType=INTEGER})
   </insert>
 
   <insert id="insertSelective" parameterType="top.putop.mi.db.model.TbManager">
@@ -157,20 +157,20 @@
   <update id="updateByPrimaryKey" parameterType="top.putop.mi.db.model.TbManager">
     update tb_manager
     set tb_com_format = #{tbComFormat,jdbcType=VARCHAR},
-      tb_name = #{tbName,jdbcType=VARCHAR},
-      tb_comment = #{tbComment,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      enable_flag = #{enableFlag,jdbcType=INTEGER},
-      db_id = #{dbId,jdbcType=INTEGER}
+    tb_name = #{tbName,jdbcType=VARCHAR},
+    tb_comment = #{tbComment,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    enable_flag = #{enableFlag,jdbcType=INTEGER},
+    db_id = #{dbId,jdbcType=INTEGER}
     where tb_id = #{tbId,jdbcType=INTEGER}
   </update>
 
   <select id="getTableByPrimaryKey" parameterType="java.lang.Integer" resultMap="Table">
     select * from tb_manager a
-        left join col_manager b on a.tb_id = b.tb_id
-        left join db_manager c on a.db_id = c.db_id
-        left join db_param_manager d on a.db_id = d.db_id
+    left join col_manager b on a.tb_id = b.tb_id
+    left join db_manager c on a.db_id = c.db_id
+    left join db_param_manager d on a.db_id = d.db_id
     where a.tb_id = #{tbId}
   </select>
 

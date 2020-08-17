@@ -2,11 +2,10 @@ package top.putop.mi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.putop.mi.db.dao.DbParamManagerMapper;
 import top.putop.mi.db.dao.TaskManagerMapper;
 import top.putop.mi.db.dao.TbManagerMapper;
 import top.putop.mi.db.model.ColManager;
-import top.putop.mi.db.model.DbParamManager;
+import top.putop.mi.db.model.SrcParamManager;
 import top.putop.mi.db.model.Table;
 import top.putop.mi.db.model.TaskManager;
 import top.putop.mi.service.ITaskManagerService;
@@ -71,7 +70,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
         String sqlContext = "create table if not exists %s.%s ( %s ) comment '%s' stored as %s;";
 
         Table table = tbManagerMapper.getTableByPrimaryKey(tbId);
-        String dbName = table.getDbName();
+        String dbName = table.getSrcName();
         String tableName = table.getTbName();
         String tableComment = table.getTbComment();
         String tableFormt = table.getTbComFormat();
@@ -122,7 +121,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
 
         Table table = tbManagerMapper.getTableByPrimaryKey(tbId);
 
-        String dbName = table.getDbName();
+        String dbName = table.getSrcName();
         String tableName = table.getTbName();
 
         List<ColManager> columns = table.getColumns();
@@ -135,18 +134,18 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
 
         String ip = "";
         String port = "";
-        String sourceDbName = "";
+        String sourceSrcName = "";
         String username = "";
         String password = "";
 
-        List<DbParamManager> params = table.getDbParams();
+        List<SrcParamManager> params = table.getSrcParams();
 
-        for(DbParamManager param : params){
-            String paramKey = param.getDbParamName();
-            String paramValue = param.getDbParamValue();
+        for(SrcParamManager param : params){
+            String paramKey = param.getSrcParamName();
+            String paramValue = param.getSrcParamValue();
             if(paramKey.contains("ip")) ip = paramValue;
             if(paramKey.contains("port")) port = paramValue;
-            if(paramKey.contains("dbname")) sourceDbName = paramValue;
+            if(paramKey.contains("dbname")) sourceSrcName = paramValue;
             if(paramKey.contains("username")) username = paramValue;
             if(paramKey.contains("password")) password = paramValue;
         }
@@ -158,7 +157,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
         taskManager.setScriptType(2);
         taskManager.setTaskName(taskName);
         taskManager.setTaskComment(taskComment);
-        taskManager.setTaskContext(String.format(shellContext,dbName,tableName,ip,port,sourceDbName,username,password,colStr.substring(0,colStr.lastIndexOf(","))));
+        taskManager.setTaskContext(String.format(shellContext,dbName,tableName,ip,port,sourceSrcName,username,password,colStr.substring(0,colStr.lastIndexOf(","))));
         taskManager.setEnableFlag(1);
         taskManager.setTbId(tbId);
         taskManager.setCreateTime(new Date());
@@ -189,7 +188,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
 
         Table table = tbManagerMapper.getTableByPrimaryKey(tbId);
 
-        String dbName = table.getDbName();
+        String dbName = table.getSrcName();
         String tableName = table.getTbName();
 
         List<ColManager> columns = table.getColumns();
@@ -202,18 +201,18 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
 
         String ip = "";
         String port = "";
-        String sourceDbName = "";
+        String sourceSrcName = "";
         String username = "";
         String password = "";
 
-        List<DbParamManager> params = table.getDbParams();
+        List<SrcParamManager> params = table.getSrcParams();
 
-        for(DbParamManager param : params){
-            String paramKey = param.getDbParamName();
-            String paramValue = param.getDbParamValue();
+        for(SrcParamManager param : params){
+            String paramKey = param.getSrcParamName();
+            String paramValue = param.getSrcParamValue();
             if(paramKey.contains("ip")) ip = paramValue;
             if(paramKey.contains("port")) port = paramValue;
-            if(paramKey.contains("dbname")) sourceDbName = paramValue;
+            if(paramKey.contains("dbname")) sourceSrcName = paramValue;
             if(paramKey.contains("username")) username = paramValue;
             if(paramKey.contains("password")) password = paramValue;
         }
@@ -223,7 +222,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
         taskManager.setScriptType(2);
         taskManager.setTaskName(taskName);
         taskManager.setTaskComment(taskComment);
-        taskManager.setTaskContext(String.format(shellContext,dbName,tableName,ip,port,sourceDbName,username,password,colStr.substring(0,colStr.lastIndexOf(","))));
+        taskManager.setTaskContext(String.format(shellContext,dbName,tableName,ip,port,sourceSrcName,username,password,colStr.substring(0,colStr.lastIndexOf(","))));
         taskManager.setEnableFlag(1);
         taskManager.setTbId(tbId);
         taskManager.setCreateTime(new Date());

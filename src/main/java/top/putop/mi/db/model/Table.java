@@ -6,21 +6,21 @@ public class Table extends TbManager{
 
     private String dbName;
     private List<ColManager> columns;
-    private List<DbParamManager> dbParams;
+    private List<SrcParamManager> dbParams;
 
-    public List<DbParamManager> getDbParams() {
+    public List<SrcParamManager> getSrcParams() {
         return dbParams;
     }
 
-    public void setDbParams(List<DbParamManager> dbParams) {
+    public void setSrcParams(List<SrcParamManager> dbParams) {
         this.dbParams = dbParams;
     }
 
-    public String getDbName() {
+    public String getSrcName() {
         return dbName;
     }
 
-    public void setDbName(String dbName) {
+    public void setSrcName(String dbName) {
         this.dbName = dbName;
     }
 

@@ -24,7 +24,7 @@
                selectByExampleQueryId="false">
         </table>
 
-        <table schema="dw_mt_manager" tableName="db_manager"
+        <table schema="dw_mt_manager" tableName="dw_db_manager"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -32,7 +32,15 @@
                selectByExampleQueryId="false">
         </table>
 
-        <table schema="dw_mt_manager" tableName="db_param_manager"
+        <table schema="dw_mt_manager" tableName="src_manager"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+        <table schema="dw_mt_manager" tableName="src_param_manager"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
