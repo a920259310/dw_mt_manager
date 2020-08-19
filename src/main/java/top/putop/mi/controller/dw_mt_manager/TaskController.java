@@ -31,12 +31,13 @@ public class TaskController {
     }
 
     @RequestMapping(value = "create_import_mysql_shell", method = RequestMethod.POST)
-    public ModelAndView createImportMysqlShell(@RequestParam("tbId") int tbId,
+    public ModelAndView createImportMysqlShell(@RequestParam("srcId") int srcId,
+                                               @RequestParam("tbId") int tbId,
                                                @RequestParam("taskName") String taskName,
                                                @RequestParam("taskComment") String taskComment){
 
         ModelAndView mav =new ModelAndView(new MappingJackson2JsonView());
-        if(iTaskManagerService.genMysqlImportCodeByTbId(tbId,taskName,taskComment)){
+        if(iTaskManagerService.genMysqlImportCodeByTbId(srcId,tbId,taskName,taskComment)){
             mav.addObject("状态","成功");
         }else{
             mav.addObject("状态","失败");
@@ -45,12 +46,13 @@ public class TaskController {
     }
 
     @RequestMapping(value = "create_import_oracle_shell", method = RequestMethod.POST)
-    public ModelAndView createImportOracleShell(@RequestParam("tbId") int tbId,
+    public ModelAndView createImportOracleShell(@RequestParam("srcId") int srcId,
+                                                @RequestParam("tbId") int tbId,
                                                 @RequestParam("taskName") String taskName,
                                                 @RequestParam("taskComment") String taskComment){
 
         ModelAndView mav =new ModelAndView(new MappingJackson2JsonView());
-        if(iTaskManagerService.genOracleImportCodeByTbId(tbId, taskName, taskComment)){
+        if(iTaskManagerService.genOracleImportCodeByTbId(tbId,tbId, taskName, taskComment)){
             mav.addObject("状态","成功");
         }else{
             mav.addObject("状态","失败");

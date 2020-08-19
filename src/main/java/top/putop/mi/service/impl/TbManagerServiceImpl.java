@@ -49,7 +49,7 @@ public class TbManagerServiceImpl implements ITbManagerService {
         return tbManagerMapper.updateByPrimaryKey(tbManager);
     }
 
-    @Override
-    public Table getTableByPrimaryKey(Integer tbId) { return tbManagerMapper.getTableByPrimaryKey(tbId); }
+    //@Override
+    //public Table getTableByPrimaryKey(Integer tbId) { return tbManagerMapper.getTableByPrimaryKey(tbId); }
 
 }

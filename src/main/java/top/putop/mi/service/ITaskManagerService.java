@@ -17,24 +17,38 @@ public interface ITaskManagerService extends IBaseService<TaskManager> {
 
     /**
      * 生成指定表的建表脚本类容
-     * @param tbId
-     * @return
+     * @param tbId 表主键
+     * @param taskName 任务名称
+     * @param taskComment 任务注释
      */
     public Boolean genCreateCodeByTbId(int tbId,String taskName,String taskComment);
 
     /**
-     * 生成指定表的Mysql数据同步脚本类容
+     *
+     *
      * @param tbId
      * @return
      */
-    public Boolean genMysqlImportCodeByTbId(int tbId,String taskName,String taskComment);
+    /**
+     * 生成指定表的Mysql数据同步脚本类容
+     *
+     * @param srcId 数据源主键
+     * @param tbId 表主键
+     * @param taskName 任务名称
+     * @param taskComment 任务注释
+     * @return
+     */
+    public Boolean genMysqlImportCodeByTbId(int srcId,int tbId,String taskName,String taskComment);
 
     /**
      * 生成指定表的Oracle数据同步脚本类容
-     * @param tbId
+     * @param srcId 数据源主键
+     * @param tbId 表主键
+     * @param taskName 任务名称
+     * @param taskComment 任务注释
      * @return
      */
-    public Boolean genOracleImportCodeByTbId(int tbId,String taskName,String taskComment);
+    public Boolean genOracleImportCodeByTbId(int srcId,int tbId,String taskName,String taskComment);
 
     /**
      * 生成指定表的Es数据导出脚本类容

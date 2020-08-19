@@ -15,7 +15,7 @@ public class TestTbManagerService {
 
     @Test
     public void getTableByPrimaryKey(){
-        System.out.println(iTbManagerService.getTableByPrimaryKey(1));
+        System.out.println(iTbManagerService.selectByPrimaryKey(1));
     }
 
 }

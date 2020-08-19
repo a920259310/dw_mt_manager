@@ -6,6 +6,8 @@ import top.putop.mi.db.dao.ColManagerMapper;
 import top.putop.mi.db.model.ColManager;
 import top.putop.mi.service.IColManagerService;
 
+import java.util.List;
+
 /**
  * 字段管理器实现类
  *
@@ -46,5 +48,10 @@ public class ColManagerServiceImpl implements IColManagerService {
     @Override
     public int updateByPrimaryKey(ColManager colManager) {
         return colManagerMapper.updateByPrimaryKey(colManager);
+    }
+
+    @Override
+    public List<ColManager> selectByTbId(Integer tbId) {
+        return colManagerMapper.selectByTbId(tbId);
     }
 }

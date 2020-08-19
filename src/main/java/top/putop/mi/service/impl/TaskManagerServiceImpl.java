@@ -2,12 +2,8 @@ package top.putop.mi.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.putop.mi.db.dao.TaskManagerMapper;
-import top.putop.mi.db.dao.TbManagerMapper;
-import top.putop.mi.db.model.ColManager;
-import top.putop.mi.db.model.SrcParamManager;
-import top.putop.mi.db.model.Table;
-import top.putop.mi.db.model.TaskManager;
+import top.putop.mi.db.dao.*;
+import top.putop.mi.db.model.*;
 import top.putop.mi.service.ITaskManagerService;
 
 import java.util.Date;
@@ -26,6 +22,14 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
     private TaskManagerMapper taskManagerMapper;
     @Autowired
     private TbManagerMapper tbManagerMapper;
+    @Autowired
+    private DwDbManagerMapper dwDbManagerMapper;
+    @Autowired
+    private ColManagerMapper colManagerMapper;
+    @Autowired
+    private SrcManagerMapper srcManagerMapper;
+    @Autowired
+    private SrcParamManagerMapper srcParamManagerMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer taskId) {
@@ -69,13 +73,17 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
 
         String sqlContext = "create table if not exists %s.%s ( %s ) comment '%s' stored as %s;";
 
-        Table table = tbManagerMapper.getTableByPrimaryKey(tbId);
-        String dbName = table.getSrcName();
-        String tableName = table.getTbName();
-        String tableComment = table.getTbComment();
-        String tableFormt = table.getTbComFormat();
+        TbManager tbManager = tbManagerMapper.selectByPrimaryKey(tbId);
+        DwDbManager dwDbManager = dwDbManagerMapper.selectByPrimaryKey(tbManager.getDwDbId());
 
-        List<ColManager> columns = table.getColumns();
+        String dbName = dwDbManager.getDbName();
+
+        String tableName = tbManager.getTbName();
+        String tableComment = tbManager.getTbComment();
+        String tableFormt = tbManager.getTbComFormat();
+
+        List<ColManager> columns = colManagerMapper.selectByTbId(tbManager.getTbId());
+
         StringBuffer colStr = new StringBuffer();
 
         for(int i=0 ; i < columns.size() ; i++){
@@ -102,7 +110,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
     }
 
     @Override
-    public Boolean genMysqlImportCodeByTbId(int tbId,String taskName,String taskComment) {
+    public Boolean genMysqlImportCodeByTbId(int srcId,int tbId,String taskName,String taskComment) {
 
         String shellContext = "sqoop import -D mapred.job.queue.name=\"default\" \\\n" +
                 "--mapreduce-job-name '%1$s.%2$s' \\\n" +
@@ -119,12 +127,14 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
                 "--hive-database \"ods_stg_%1$s\" \\\n" +
                 "--hive-table \"stg_%2$s\"";
 
-        Table table = tbManagerMapper.getTableByPrimaryKey(tbId);
+        TbManager tbManager = tbManagerMapper.selectByPrimaryKey(tbId);
+        DwDbManager dwDbManager = dwDbManagerMapper.selectByPrimaryKey(tbManager.getDwDbId());
 
-        String dbName = table.getSrcName();
-        String tableName = table.getTbName();
+        String dbName = dwDbManager.getDbName();
+        String tableName = tbManager.getTbName();
 
-        List<ColManager> columns = table.getColumns();
+        List<ColManager> columns = colManagerMapper.selectByTbId(tbId);
+
         StringBuffer colStr = new StringBuffer();
 
         for(int i=0 ; i < columns.size() ; i++){
@@ -138,16 +148,24 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
         String username = "";
         String password = "";
 
-        List<SrcParamManager> params = table.getSrcParams();
+        List<SrcParamManager> params = srcParamManagerMapper.selectByTbSrcId(srcId);
+
+//        JDBC：[db_type:数据库类型,
+//                db_service_name:服务类型,
+//                db_pro_ip:数据库IP,
+//                db_pro_port:数据库端口,
+//                db_name:数据库名称,
+//                db_user_name:数据库账号,
+//                db_pass:数据库密码]
 
         for(SrcParamManager param : params){
             String paramKey = param.getSrcParamName();
             String paramValue = param.getSrcParamValue();
-            if(paramKey.contains("ip")) ip = paramValue;
-            if(paramKey.contains("port")) port = paramValue;
-            if(paramKey.contains("dbname")) sourceSrcName = paramValue;
-            if(paramKey.contains("username")) username = paramValue;
-            if(paramKey.contains("password")) password = paramValue;
+            if(paramKey.contains("db_pro_ip")) ip = paramValue;
+            if(paramKey.contains("db_pro_port")) port = paramValue;
+            if(paramKey.contains("db_name")) sourceSrcName = paramValue;
+            if(paramKey.contains("db_user_name")) username = paramValue;
+            if(paramKey.contains("db_pass")) password = paramValue;
         }
 
 
@@ -160,6 +178,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
         taskManager.setTaskContext(String.format(shellContext,dbName,tableName,ip,port,sourceSrcName,username,password,colStr.substring(0,colStr.lastIndexOf(","))));
         taskManager.setEnableFlag(1);
         taskManager.setTbId(tbId);
+        taskManager.setSrcId(srcId);
         taskManager.setCreateTime(new Date());
         taskManager.setUpdateTime(new Date());
 
@@ -169,7 +188,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
     }
 
     @Override
-    public Boolean genOracleImportCodeByTbId(int tbId,String taskName,String taskComment) {
+    public Boolean genOracleImportCodeByTbId(int srcId,int tbId,String taskName,String taskComment) {
 
         String shellContext = "sqoop import -D mapred.job.queue.name=\"default\" \\\n" +
                 "--mapreduce-job-name '%1$s.%2$s' \\\n" +
@@ -186,12 +205,14 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
                 "--hive-database \"ods_stg_%1$s\" \\\n" +
                 "--hive-table \"stg_%2$s\"";
 
-        Table table = tbManagerMapper.getTableByPrimaryKey(tbId);
+        TbManager tbManager = tbManagerMapper.selectByPrimaryKey(tbId);
+        DwDbManager dwDbManager = dwDbManagerMapper.selectByPrimaryKey(tbManager.getDwDbId());
 
-        String dbName = table.getSrcName();
-        String tableName = table.getTbName();
+        String dbName = dwDbManager.getDbName();
+        String tableName = tbManager.getTbName();
 
-        List<ColManager> columns = table.getColumns();
+        List<ColManager> columns = colManagerMapper.selectByTbId(tbId);
+
         StringBuffer colStr = new StringBuffer();
 
         for(int i=0 ; i < columns.size() ; i++){
@@ -205,16 +226,16 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
         String username = "";
         String password = "";
 
-        List<SrcParamManager> params = table.getSrcParams();
+        List<SrcParamManager> params = srcParamManagerMapper.selectByTbSrcId(srcId);
 
         for(SrcParamManager param : params){
             String paramKey = param.getSrcParamName();
             String paramValue = param.getSrcParamValue();
-            if(paramKey.contains("ip")) ip = paramValue;
-            if(paramKey.contains("port")) port = paramValue;
-            if(paramKey.contains("dbname")) sourceSrcName = paramValue;
-            if(paramKey.contains("username")) username = paramValue;
-            if(paramKey.contains("password")) password = paramValue;
+            if(paramKey.contains("db_pro_ip")) ip = paramValue;
+            if(paramKey.contains("db_pro_port")) port = paramValue;
+            if(paramKey.contains("db_name")) sourceSrcName = paramValue;
+            if(paramKey.contains("db_user_name")) username = paramValue;
+            if(paramKey.contains("db_pass")) password = paramValue;
         }
 
         TaskManager taskManager = new TaskManager();
@@ -225,6 +246,7 @@ public class TaskManagerServiceImpl implements ITaskManagerService {
         taskManager.setTaskContext(String.format(shellContext,dbName,tableName,ip,port,sourceSrcName,username,password,colStr.substring(0,colStr.lastIndexOf(","))));
         taskManager.setEnableFlag(1);
         taskManager.setTbId(tbId);
+        taskManager.setSrcId(srcId);
         taskManager.setCreateTime(new Date());
         taskManager.setUpdateTime(new Date());
 

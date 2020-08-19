@@ -5,18 +5,24 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import top.putop.mi.db.dao.ColManagerMapper;
 import top.putop.mi.db.dao.TbManagerMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class TestTbManagerMapper {
+public class TestColManagerMapper {
 
     @Autowired
-    private TbManagerMapper tbManagerMapper;
+    private ColManagerMapper colManagerMapper;
 
     @Test
-    public void getTableByPrimaryKey(){
-        System.out.println(tbManagerMapper.selectByPrimaryKey(1));
+    public void selectByTbId(){
+        System.out.println(colManagerMapper.selectByTbId(1));
+    }
+
+    @Test
+    public void selectByPrimaryKey(){
+        System.out.println(colManagerMapper.selectByPrimaryKey(2));
     }
 
 }

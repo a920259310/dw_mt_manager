@@ -1,6 +1,5 @@
 package top.putop.mi.service;
 
-import top.putop.mi.db.model.Table;
 import top.putop.mi.db.model.TbManager;
 
 /**
@@ -9,6 +8,6 @@ import top.putop.mi.db.model.TbManager;
  */
 public interface ITbManagerService extends IBaseService<TbManager> {
 
-    public Table getTableByPrimaryKey(Integer tbId);
+    //public Table getTableByPrimaryKey(Integer tbId);
 
 }
